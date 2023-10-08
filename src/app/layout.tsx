@@ -1,13 +1,8 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Manrope } from 'next/font/google';
-import { MainLayout } from '@/components/MainLayout';
 
-const mapropeFont = Manrope({
-  display: 'swap',
-  subsets: ['latin'],
-  weight: ['300', '600', '500'],
-});
+import { MainLayout } from '@/components/MainLayout';
+import { manropeFont } from '@/constants/fonts';
 
 export const metadata: Metadata = {
   title: 'Annibuliful',
@@ -25,9 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body
-        className={`${mapropeFont.className} bg-slate-50 min-h-screen`}
-      >
+      <body className={`${manropeFont.className} bg-slate-50`}>
         <MainLayout>{children}</MainLayout>
       </body>
     </html>

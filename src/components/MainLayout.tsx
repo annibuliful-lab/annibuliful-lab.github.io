@@ -6,6 +6,7 @@ import { XMarkIcon, Bars3Icon } from '@heroicons/react/24/outline';
 import { Fragment, useState } from 'react';
 import { NavbarItem } from './NavbarItem';
 import { Mali } from 'next/font/google';
+import Link from 'next/link';
 
 const maliFont = Mali({ subsets: ['latin'], weight: ['500'] });
 
@@ -22,16 +23,18 @@ export const MainLayout = ({
   };
 
   return (
-    <Fragment>
+    <div className="min-h-screen">
       <main className={`${isMobile ? 'pt-4' : 'pt-6'}`}>
         {isMobile ? (
           <Fragment>
             <div className="flex items-center justify-between mx-4">
-              <span
-                className={`cursor-pointer font-semibold text-gray-900 text-2xl hover:text-blue-500 ${maliFont.className}`}
-              >
-                Annibuliful
-              </span>
+              <Link href="/">
+                <span
+                  className={`cursor-pointer font-semibold text-gray-900 text-2xl hover:text-blue-500 ${maliFont.className}`}
+                >
+                  Annibuliful
+                </span>
+              </Link>
               <span>
                 {isMobileMenuOpen ? (
                   <XMarkIcon
@@ -47,7 +50,7 @@ export const MainLayout = ({
               </span>
             </div>
 
-            <div className="flex flex-col mt-2 absolute">
+            <div className="flex flex-col mt-2">
               {isMobileMenuOpen
                 ? routes.map((route) => (
                     <div key={route.title} className="my-1">
@@ -62,11 +65,13 @@ export const MainLayout = ({
           </Fragment>
         ) : (
           <div className="flex items-end mx-6">
-            <span
-              className={`mx-6 cursor-pointer font-semibold text-gray-900 text-2xl hover:text-blue-500 ${maliFont.className}`}
-            >
-              Annibuliful
-            </span>
+            <Link href="/">
+              <span
+                className={`mx-6 cursor-pointer font-semibold text-gray-900 text-2xl hover:text-blue-500 ${maliFont.className}`}
+              >
+                Annibuliful
+              </span>
+            </Link>
             {routes.map((route) => (
               <NavbarItem
                 key={route.title}
@@ -77,7 +82,11 @@ export const MainLayout = ({
           </div>
         )}
       </main>
-      {children}
-    </Fragment>
+      {!isMobileMenuOpen ? (
+        <div className={isMobile ? 'mx-5 mt-5' : 'mx-12 mt-12'}>
+          {children}
+        </div>
+      ) : null}
+    </div>
   );
 };
